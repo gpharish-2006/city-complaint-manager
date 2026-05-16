@@ -1,0 +1,164 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.auth-page {
+  display: flex;
+  height: 100vh;
+
+  background: linear-gradient(to right, #020024, #090979, #000428);
+}
+
+/* LEFT SIDE */
+
+.left-section {
+  flex: 1;
+
+  background-image:
+    linear-gradient(
+      rgba(0,0,0,0.5),
+      rgba(0,0,0,0.7)
+    ),
+    url("https://images.unsplash.com/photo-1477959858617-67f85cf4f1df");
+
+  background-size: cover;
+  background-position: center;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.overlay {
+  color: white;
+  text-align: center;
+  padding: 40px;
+}
+
+.overlay h1 {
+  font-size: 50px;
+  font-weight: bold;
+  margin-bottom: 20px;
+}
+
+.overlay p {
+  font-size: 20px;
+  max-width: 600px;
+}
+
+/* RIGHT SIDE */
+
+.right-section {
+  flex: 1;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.auth-card {
+  width: 420px;
+
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  border-radius: 20px;
+
+  padding: 40px;
+
+  color: white;
+}
+
+.auth-card h2 {
+  font-size: 38px;
+  font-weight: bold;
+}
+
+/* TOGGLE */
+
+.toggle-buttons {
+  display: flex;
+
+  background: rgba(255,255,255,0.08);
+
+  border-radius: 10px;
+
+  overflow: hidden;
+}
+
+.toggle-buttons button {
+  flex: 1;
+
+  border: none;
+
+  padding: 12px;
+
+  background: transparent;
+
+  color: white;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.active-btn {
+  background: linear-gradient(to right, #6a5cff, #c850c0);
+}
+
+/* INPUTS */
+
+.form-control {
+  height: 50px;
+
+  background: rgba(255,255,255,0.08);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  color: white;
+}
+
+.form-control::placeholder {
+  color: #ccc;
+}
+
+.form-control:focus {
+  background: rgba(255,255,255,0.1);
+
+  color: white;
+
+  box-shadow: none;
+
+  border-color: #6a5cff;
+}
+
+/* BUTTON */
+
+.submit-btn {
+  width: 100%;
+
+  height: 50px;
+
+  border: none;
+
+  border-radius: 30px;
+
+  background: linear-gradient(to right, #6a5cff, #d946ef);
+
+  color: white;
+
+  font-size: 18px;
+
+  font-weight: bold;
+
+  transition: 0.3s;
+}
+
+.submit-btn:hover {
+  opacity: 0.9;
+}
