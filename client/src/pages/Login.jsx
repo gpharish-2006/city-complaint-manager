@@ -70,6 +70,7 @@ function Login() {
             type="password"
             placeholder="Enter password"
             className="form-control"
+            minLength={3} maxLength={6}
           />
 
           <button className="login-btn">

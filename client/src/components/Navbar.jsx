@@ -12,20 +12,20 @@ function Navbar() {
 
         <div className="d-flex align-items-center gap-4">
 
-          <a href="#" className="nav-link text-light">
+          <Link to="/" className="nav-link text-light">
             Home
-          </a>
+          </Link>
 
-          <a href="#" className="nav-link text-light">
+          <Link to="/services" className="nav-link text-light">
             Services
-          </a>
+          </Link>
 
-          <a href="#" className="nav-link text-light">
+          <Link to="/complaints" className="nav-link text-light">
             Complaints
-          </a>
+          </Link>
 
           <Link className="login-btn" to="/login">
-            Sign In / Sign Up
+            Sign In/Sign Up
           </Link>
 
         </div>

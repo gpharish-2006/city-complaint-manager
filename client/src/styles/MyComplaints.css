@@ -1,0 +1,42 @@
+.my-complaints-page {
+  min-height: 100vh;
+
+  background: linear-gradient(
+    to right,
+    #020024,
+    #090979,
+    #000428
+  );
+
+  padding-top: 100px;
+}
+
+.complaint-card {
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  color: white;
+
+  border: 1px solid rgba(255,255,255,0.1);
+}
+
+.status-badge {
+  background: linear-gradient(
+    to right,
+    #6a5cff,
+    #d946ef
+  );
+
+  padding: 8px 16px;
+
+  border-radius: 20px;
+
+  display: inline-block;
+
+  margin-top: 10px;
+}

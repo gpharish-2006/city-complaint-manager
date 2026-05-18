@@ -1,11 +1,10 @@
+import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/Home.css";
 
 function Home() {
   return (
     <>
-      <Navbar />
-
       <div className="hero-section">
 
         <div className="hero-content text-center text-light">
@@ -19,64 +18,53 @@ function Home() {
           </p>
 
           <div>
-            <button className="btn btn-info text-dark fw-bold me-3 px-4">
+            <Link to="/create-complaint" className="btn btn-info text-dark fw-bold me-3 px-4">
               Raise Complaint
-            </button>
+            </Link>
 
-            <button className="btn btn-light text-dark fw-bold me-3 px-4">
+            <Link to="/track" className="btn btn-light text-dark fw-bold me-3 px-4">
               Track Status
-            </button>
+            </Link>
           </div>
 
         </div>
 
       </div>
 
-      <div className="service py-5">
+      <footer className="footer">
 
-        <h2 className="text-center mb-5 fw-bold">
-          Services
-        </h2>
+        <div className="container">
 
-        <div className="row g-4">
+          <div className="row">
 
-          <div className="col-md-4">
+            <div className="col-md-4">
 
-            <div className="service-card">
-
-              <h3>Road Problems</h3>
+              <h4>SmartCity</h4>
 
               <p>
-                Report potholes and damaged roads quickly.
+                Smart city complaint management system
+                for reporting and tracking city issues.
               </p>
 
             </div>
 
-          </div>
+            <div className="col-md-4">
 
-          <div className="col-md-4">
+              <h4>Quick Links</h4>
 
-            <div className="service-card">
-
-              <h3>Water Issues</h3>
-
-              <p>
-                Report leakage and drainage problems.
-              </p>
+              <p><Link to="/" className="text-light">Home</Link></p>
+              <p><Link to="/services" className="text-light">Services</Link></p>
+              <p><Link to="/create-complaint" className="text-light">Raise Complaint</Link></p>
 
             </div>
 
-          </div>
+            <div className="col-md-4">
 
-          <div className="col-md-4">
+              <h4>Emergency</h4>
 
-            <div className="service-card">
-
-              <h3>Street Lights</h3>
-
-              <p>
-                Report street light and electricity issues.
-              </p>
+              <p>Police: 100</p>
+              <p>Ambulance: 108</p>
+              <p>Fire Service: 101</p>
 
             </div>
 
@@ -84,7 +72,7 @@ function Home() {
 
         </div>
 
-      </div>
+      </footer>
     </>
   );
 }

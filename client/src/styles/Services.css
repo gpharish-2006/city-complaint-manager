@@ -1,0 +1,92 @@
+.services-page {
+  min-height: 100vh;
+
+  background: linear-gradient(
+    to right,
+    #020024,
+    #090979,
+    #000428
+  );
+
+  padding-top: 100px;
+}
+
+.service-box {
+  background: rgba(255,255,255,0.08);
+
+  backdrop-filter: blur(10px);
+
+  border: 1px solid rgba(255,255,255,0.1);
+
+  border-radius: 20px;
+
+  padding: 30px;
+
+  color: white;
+
+  height: 100%;
+
+  transition: 0.3s;
+}
+
+.service-box:hover {
+  transform: translateY(-8px);
+
+  border-color: #6a5cff;
+}
+
+.service-box h3 {
+  margin-bottom: 15px;
+
+  color: #66fcf1;
+}
+
+.extra-details {
+  margin-top: 20px;
+
+  animation: fadeIn 0.3s ease;
+}
+
+.extra-details ul {
+  padding-left: 20px;
+}
+
+.login-btn {
+  width: 100%;
+
+  color: white;
+  height: 45px;
+
+  border: none;
+
+  border-radius: 25px;
+
+  background: linear-gradient(
+    to right,
+    #6a5cff,
+    #d946ef
+  );
+
+
+  font-weight: bold;
+
+  margin-top: 15px;
+}
+
+.service-box {
+  cursor: pointer;
+}
+
+@keyframes fadeIn {
+
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+}

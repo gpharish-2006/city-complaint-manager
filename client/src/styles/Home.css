@@ -1,12 +1,13 @@
 .hero-section {
   height: 90vh;
 
-  background: linear-gradient(
-      rgba(2, 20, 113, 0.6),
-      rgba(4, 11, 47, 0.7),
-      rgba(22, 30, 135, 0.6)
-    ),
-    url("https://images.unsplash.com/photo-1480714378408-67cf0d13bc1b");
+  background: linear-gradient( 
+    to right,
+    rgba(2, 0, 36, 0.6), 
+    rgba(9, 9, 121, 0.7),
+    rgba(0, 4, 40, 0.6)
+  ),
+  url("towers.jpeg");
 
   background-size: cover;
   background-position: center;
@@ -45,9 +46,9 @@
 .navbar{
   background: linear-gradient(
     to right,
-    #03012b,
-    #3838d3,
-    #00095e
+    #020024,
+    #090979,
+    #000428
   );
 }
 
@@ -104,14 +105,20 @@
   color: white;
 }
 
-.service{
+.footer {
   background: linear-gradient(
     to right,
-    #03012b,
-    #3838d3,
-    #00095e
+    #020024,
+    #090979,
+    #000428
   );
   color: white;
-  padding: 15px 30px;
-  font-size: 18px;
+
+  padding: 50px 0;
+}
+
+.footer h4 {
+  margin-bottom: 20px;
+
+  color: #66fcf1;
 }
