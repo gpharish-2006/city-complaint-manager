@@ -1,28 +1,28 @@
-import express from "express";
-import mongoose from "mongoose";
-import cors from "cors";
-import dotenv from "dotenv";
-import authRoutes from "./routes/authRoutes.mjs";
+import express from 'express';
+import cors from 'cors';
+import dotenv from 'dotenv';
+import mongo from './config/db.mjs';
+import authRoutes from './routes/authRoutes.mjs';
+import complaintRoutes from './routes/complaintRoutes.mjs';
+import adminRoutes from './routes/adminRoutes.mjs';
 
 dotenv.config();
+const port = process.env.PORT || 5000;
 
-const app = express();
+const app = express()
 
-app.use("/api/auth", authRoutes);
-app.use(cors());
-app.use(express.json());
+app.use(cors())
+app.use(express.json())
+app.use('/api/auth', authRoutes)
+app.use("/api/complaints", complaintRoutes)
+app.use("/api/admin", adminRoutes)
 
-app.get("/", (req, res) => {
-  res.send("Smart City Complaint API Running");
+mongo();
+
+app.get("/",(req,res)=>{
+  res.send("Citizen Service API Running");
 });
 
-mongoose
-  .connect(process.env.MONGO_URI)
-  .then(() => console.log("MongoDB Connected"))
-  .catch((err) => console.log(err));
-
-const PORT = process.env.PORT || 5000;
-
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-});
+app.listen(port,()=>{
+  console.log(`server started on http://localhost:${port}/`)
+})
