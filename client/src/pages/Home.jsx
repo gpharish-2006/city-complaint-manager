@@ -10,7 +10,7 @@ function Home() {
         <div className="hero-content text-center text-light">
 
           <h1 className="mb-3">
-            Smart City Complaint System
+            Citizen Service Management System
           </h1>
 
           <p className="mb-4">

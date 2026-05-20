@@ -12,22 +12,16 @@
 }
 
 .service-box {
-  background: rgba(255,255,255,0.08);
-
+  background: rgba(255, 255, 255, 0.08);
   backdrop-filter: blur(10px);
-
-  border: 1px solid rgba(255,255,255,0.1);
-
+  border: 1px solid rgba(255, 255, 255, 0.1);
   border-radius: 20px;
-
   padding: 30px;
-
   color: white;
-
-  height: 100%;
-
+  cursor: pointer;
   transition: 0.3s;
 }
+
 
 .service-box:hover {
   transform: translateY(-8px);
@@ -89,4 +83,8 @@
     transform: translateY(0);
   }
 
+}
+
+.hidden {
+  display: none !important;
 }
