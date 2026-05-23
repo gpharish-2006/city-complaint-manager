@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import Navbar from "../components/Navbar";
 import "../styles/Home.css";
+import Footer from "../components/Footer";
 
 function Home() {
   return (
@@ -28,51 +29,8 @@ function Home() {
           </div>
 
         </div>
-
       </div>
-
-      <footer className="footer">
-
-        <div className="container">
-
-          <div className="row">
-
-            <div className="col-md-4">
-
-              <h4>SmartCity</h4>
-
-              <p>
-                Smart city complaint management system
-                for reporting and tracking city issues.
-              </p>
-
-            </div>
-
-            <div className="col-md-4">
-
-              <h4>Quick Links</h4>
-
-              <p><Link to="/" className="text-light">Home</Link></p>
-              <p><Link to="/services" className="text-light">Services</Link></p>
-              <p><Link to="/create-complaint" className="text-light">Raise Complaint</Link></p>
-
-            </div>
-
-            <div className="col-md-4">
-
-              <h4>Emergency</h4>
-
-              <p>Police: 100</p>
-              <p>Ambulance: 108</p>
-              <p>Fire Service: 101</p>
-
-            </div>
-
-          </div>
-
-        </div>
-
-      </footer>
+      <Footer />
     </>
   );
 }

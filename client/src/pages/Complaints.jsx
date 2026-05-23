@@ -1,12 +1,12 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
-
+import api from "../api/axios";
 import Navbar from "../components/Navbar";
 import "../styles/MyComplaints.css";
 
 function Complaints() {
 
   const [complaints, setComplaints] = useState([]);
+  const [openId, setOpenId] = useState(null);
 
   useEffect(() => {
 
@@ -14,18 +14,24 @@ function Complaints() {
 
       try {
 
-        const response = await axios.get(
-          "http://localhost:5000/api/complaints"
+        const token = localStorage.getItem("token");
+
+        const response = await api.get(
+          "/complaints/user",
+          {
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          }
         );
 
-        setComplaints(response.data);
+        setComplaints(response.data.complaint);
 
-      } catch (error) {
+      } catch (err) {
 
-        console.log("Error fetching complaints", error);
+        console.log(err);
 
       }
-
     };
 
     fetchComplaints();
@@ -38,54 +44,129 @@ function Complaints() {
 
         <div className="container py-5">
 
-          <h1 className="text-center text-light mb-5">
+          <h2
+            className="mb-5 text-center"
+            style={{
+              color: "white",
+              fontWeight: "bold",
+            }}
+          >
             My Complaints
-          </h1>
+          </h2>
 
           <div className="row g-4">
 
-            {complaints.length > 0 ? (
-
+            {
               complaints.map((item) => (
 
-                <div className="col-md-6" key={item._id}>
+                <div
+                  className="col-md-6"
+                  key={item._id}
+                >
 
-                  <div className="complaint-card">
+                  <div
+                    className="complaint-card"
+                    onClick={() =>
+                      setOpenId(
+                        openId === item._id
+                          ? null
+                          : item._id
+                      )
+                    }
+                    style={{
+                      cursor: "pointer",
+                    }}
+                  >
 
-                    <h3>{item.title}</h3>
+                    <div className="d-flex justify-content-between align-items-center">
+
+                      <h3>
+                        {item.title}
+                      </h3>
+
+                      <span className="status-badge">
+                        {item.status}
+                      </span>
+
+                    </div>
+
+                    <p className="mt-3">
+                      <strong>Complaint ID:</strong>
+                      {" "}
+                      {item.complaintId}
+                    </p>
+
+                    <button className="btn btn-info mt-3"
+                      onClick={() => {
+                        navigator.clipboard.writeText(item.complaintId);
+                      }}
+                    >
+                      Copy Complaint ID
+                    </button>
 
                     <p>
-                      <strong>Category:</strong> {item.category}
+                      <strong>Category:</strong>
+                      {" "}
+                      {item.category}
                     </p>
 
                     <p>
-                      <strong>Description:</strong> {item.description}
+                      <strong>Date:</strong>
+                      {" "}
+                      {
+                        new Date(
+                          item.createdAt
+                        ).toLocaleDateString()
+                      }
                     </p>
 
-                    <p>
-                      <strong>Date:</strong>{" "}
-                      {new Date(item.createdAt).toLocaleDateString()}
-                    </p>
+                    {
+                      openId === item._id && (
 
-                    <span className="status-badge">
-                      {item.status}
-                    </span>
+                        <div className="mt-4">
+
+                          <hr />
+
+                          <p>
+                            <strong>Description:</strong>
+                          </p>
+
+                          <p>
+                            {item.description}
+                          </p>
+
+                          {
+                            item.image && (
+
+                              <img
+                                src={`http://localhost:5000/${item.image}`}
+                                alt="complaint"
+                                className="img-fluid rounded mt-3"
+                                style={{
+                                  maxHeight: "250px",
+                                  objectFit: "cover",
+                                  width: "100%",
+                                }}
+                              />
+
+                            )
+                          }
+
+                          <Link to={`/track?id=${item.complaintId}`} >
+                            Track Status
+                          </Link>
+
+                        </div>
+
+                      )
+                    }
 
                   </div>
 
                 </div>
 
               ))
-
-            ) : (
-
-              <div className="text-center text-light">
-
-                <h4>No Complaints Found</h4>
-
-              </div>
-
-            )}
+            }
 
           </div>
 

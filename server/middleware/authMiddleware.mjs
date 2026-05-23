@@ -6,6 +6,9 @@ const authMiddleware = async (req, res, next) => {
     if(!header){
         return res.status(401).json({ message: "Unauthorised Access"});
     }
+    if(!header.startsWith("Bearer ")){
+        return res.status(401).json({ message: "Unauthorized Access" });
+    }
     const token = header.split(" ")[1];
     if(!token){
         return res.status(401).json({ message: "Unauthorised Access"});

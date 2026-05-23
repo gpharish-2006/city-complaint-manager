@@ -1,37 +1,82 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Navbar() {
-  return (
-    <nav className="navbar navbar-expand-lg navbar-dark custom-navbar px-5 py-3">
+  const navigate = useNavigate();
 
+  const token = localStorage.getItem("token");
+
+  const handleLogout = () => {
+    localStorage.removeItem("token");
+
+    navigate("/login");
+
+    window.location.reload();
+  };
+
+  return (
+    <nav className="navbar navbar-expand-lg custom-navbar px-4 py-3">
       <div className="container-fluid">
 
-        <Link className="navbar-brand fw-bold fs-3 text-info" to="/">
-          SmartCity
+        <Link className="navbar-brand fw-bold" to="/">
+          ResolveNet
         </Link>
 
-        <div className="d-flex align-items-center gap-4">
+        <button
+          className="navbar-toggler bg-light"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
 
-          <Link to="/" className="nav-link text-light">
-            Home
-          </Link>
+        <div className="collapse navbar-collapse" id="navbarNav">
 
-          <Link to="/services" className="nav-link text-light">
-            Services
-          </Link>
+          <div className="navbar-nav ms-auto align-items-center gap-3">
 
-          <Link to="/complaints" className="nav-link text-light">
-            Complaints
-          </Link>
+            <Link to="/" className="nav-link text-light">
+              Home
+            </Link>
 
-          <Link className="login-btn" to="/login">
-            Sign In/Sign Up
-          </Link>
+            <Link to="/services" className="nav-link text-light">
+              Services
+            </Link>
+
+            <Link to="/complaints" className="nav-link text-light">
+              Complaints
+            </Link>
+
+            <Link to="/track" className="nav-link text-light">
+              Track
+            </Link>
+
+            {
+              token && (
+                <Link to="/profile" className="nav-link">
+                  Profile
+                </Link>
+              )
+            }
+
+            {
+              token ? (
+                <button
+                  className="btn btn-danger px-4"
+                  onClick={handleLogout}
+                >
+                  Logout
+                </button>
+              ) : (
+                <Link to="/login" className="login-btn">
+                  Sign In / Sign Up
+                </Link>
+              )
+            }
+
+          </div>
 
         </div>
-
       </div>
-
     </nav>
   );
 }

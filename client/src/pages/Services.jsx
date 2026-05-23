@@ -10,7 +10,7 @@ function Services() {
     {
       id: 1,
       title: "Road Maintenance",
-      description: "Report potholes, damaged roads and issues.",
+      description: "Report potholes, damaged roads and Traffic Signal issues.",
       department: "Roads Department",
       hours: "9 AM - 6 PM",
       emergency: "1800-100-200",

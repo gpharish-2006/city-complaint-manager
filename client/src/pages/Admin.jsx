@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
-import axios from "axios";
 import Navbar from "../components/Navbar";
+import api from "../api/axios";
+import { toast } from "react-toastify";
 
 function Admin() {
 
@@ -13,7 +14,6 @@ function Admin() {
     users: 0,
   });
 
-
   useEffect(() => {
 
     fetchComplaints();
@@ -24,22 +24,29 @@ function Admin() {
 
     try {
 
-      const response = await axios.get(
-        "http://localhost:5000/api/complaints"
+      const token = localStorage.getItem("token");
+
+      const response = await api.get(
+        "/admin/complaints",
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
-      setComplaints(response.data);
+      setComplaints(response.data.complaints);
 
-      calculateStats(response.data);
+      calculateStats(response.data.complaints);
 
     } catch (error) {
 
+      toast.error("Error fetching complaints");
       console.log("Error fetching complaints", error);
 
     }
 
   };
-
 
   const calculateStats = (data) => {
 
@@ -54,7 +61,7 @@ function Admin() {
     ).length;
 
     const uniqueUsers = [
-      ...new Set(data.map((item) => item.userId)),
+      ...new Set(data.map((item) => item.userId?._id)),
     ].length;
 
     setStats({
@@ -65,14 +72,22 @@ function Admin() {
     });
 
   };
+
   const updateStatus = async (id, newStatus) => {
 
     try {
 
-      await axios.put(
-        `http://localhost:5000/api/complaints/${id}`,
+      const token = localStorage.getItem("token");
+
+      await api.put(
+        `/admin/complaints/${id}`,
         {
           status: newStatus,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
 
@@ -80,25 +95,33 @@ function Admin() {
 
     } catch (error) {
 
+      toast.error("Error updating status");
       console.log("Error updating status", error);
 
     }
 
   };
 
-
   const deleteComplaint = async (id) => {
 
     try {
 
-      await axios.delete(
-        `http://localhost:5000/api/complaints/${id}`
+      const token = localStorage.getItem("token");
+
+      await api.delete(
+        `/admin/complaints/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
       );
 
       fetchComplaints();
 
     } catch (error) {
 
+      toast.error("Error deleting complaint");
       console.log("Error deleting complaint", error);
 
     }
@@ -107,6 +130,8 @@ function Admin() {
 
   return (
     <>
+      <Navbar />
+
       <div
         style={{
           minHeight: "100vh",
@@ -114,15 +139,13 @@ function Admin() {
           background:
             "linear-gradient(to right, #020024, #090979, #000428)",
 
-          paddingTop: "100px",
+          paddingTop: "120px",
 
           color: "white",
         }}
       >
 
         <div className="container">
-
-          {/* HEADING */}
 
           <h1
             className="text-center mb-5"
@@ -132,8 +155,6 @@ function Admin() {
           >
             Admin Dashboard
           </h1>
-
-          {/* STATS */}
 
           <div className="row g-4 mb-5">
 
@@ -145,6 +166,8 @@ function Admin() {
                   background: "rgba(255,255,255,0.08)",
 
                   backdropFilter: "blur(10px)",
+
+                  border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
 
@@ -162,6 +185,8 @@ function Admin() {
                 className="p-4 rounded"
                 style={{
                   background: "rgba(255,255,255,0.08)",
+
+                  border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
 
@@ -179,6 +204,8 @@ function Admin() {
                 className="p-4 rounded"
                 style={{
                   background: "rgba(255,255,255,0.08)",
+
+                  border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
 
@@ -196,6 +223,8 @@ function Admin() {
                 className="p-4 rounded"
                 style={{
                   background: "rgba(255,255,255,0.08)",
+
+                  border: "1px solid rgba(255,255,255,0.1)",
                 }}
               >
 
@@ -209,14 +238,14 @@ function Admin() {
 
           </div>
 
-          {/* TABLE */}
-
           <div
             className="p-4 rounded"
             style={{
               background: "rgba(255,255,255,0.08)",
 
               backdropFilter: "blur(10px)",
+
+              border: "1px solid rgba(255,255,255,0.1)",
             }}
           >
 
@@ -235,6 +264,8 @@ function Admin() {
                     <th>ID</th>
 
                     <th>Title</th>
+
+                    <th>User</th>
 
                     <th>Category</th>
 
@@ -257,6 +288,8 @@ function Admin() {
                       <td>{item.complaintId}</td>
 
                       <td>{item.title}</td>
+
+                      <td>{item.userId?.name}</td>
 
                       <td>{item.category}</td>
 

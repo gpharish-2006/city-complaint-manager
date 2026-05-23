@@ -2,6 +2,7 @@ import express from "express";
 import User from "../models/user.mjs";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import authMiddleware from "../middleware/authMiddleware.mjs";
 
 const router = express.Router();
 
@@ -29,7 +30,6 @@ router.post("/register",async (req,res)=>{
     }
   }
   catch(err){
-    console.error(err.message);
     res.status(500).json({ message: "Internal server error" });
   }
 });
@@ -50,11 +50,20 @@ router.post("/login",async (req,res)=>{
       res.status(400).json({ message: "Invalid password"});
       return;
     }
-    const token = jwt.sign({ userId: user._id }, process.env.JWT_SECRET);
+    const token = jwt.sign({ userId: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "5h" });
     res.json({ token });
   }
   catch(err){
-    console.error(err.message);
+    res.status(500).json({ message: "Internal server error" });
+  }
+});
+
+router.get("/me", authMiddleware, async (req,res)=>{
+  try{
+    const user = req.user;
+    res.status(200).json({ user});
+  }
+  catch(err){
     res.status(500).json({ message: "Internal server error" });
   }
 });
