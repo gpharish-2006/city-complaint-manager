@@ -42,7 +42,8 @@ function Admin() {
     } catch (error) {
 
       toast.error("Error fetching complaints");
-      console.log("Error fetching complaints", error);
+
+      console.log(error);
 
     }
 
@@ -91,12 +92,15 @@ function Admin() {
         }
       );
 
+      toast.success("Status Updated");
+
       fetchComplaints();
 
     } catch (error) {
 
       toast.error("Error updating status");
-      console.log("Error updating status", error);
+
+      console.log(error);
 
     }
 
@@ -117,12 +121,15 @@ function Admin() {
         }
       );
 
+      toast.success("Complaint Deleted");
+
       fetchComplaints();
 
     } catch (error) {
 
       toast.error("Error deleting complaint");
-      console.log("Error deleting complaint", error);
+
+      console.log(error);
 
     }
 
@@ -132,44 +139,23 @@ function Admin() {
     <>
       <Navbar />
 
-      <div
-        style={{
-          minHeight: "100vh",
-
-          background:
-            "linear-gradient(to right, #020024, #090979, #000428)",
-
-          paddingTop: "120px",
-
-          color: "white",
-        }}
-      >
+      <div className="admin-page">
 
         <div className="container">
 
-          <h1
-            className="text-center mb-5"
-            style={{
-              fontWeight: "bold",
-            }}
-          >
+          {/* TITLE */}
+
+          <h1 className="admin-title">
             Admin Dashboard
           </h1>
+
+          {/* STATS */}
 
           <div className="row g-4 mb-5">
 
             <div className="col-md-3">
 
-              <div
-                className="p-4 rounded"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-
-                  backdropFilter: "blur(10px)",
-
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
+              <div className="admin-stat-card">
 
                 <h5>Total Complaints</h5>
 
@@ -181,14 +167,7 @@ function Admin() {
 
             <div className="col-md-3">
 
-              <div
-                className="p-4 rounded"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
+              <div className="admin-stat-card">
 
                 <h5>Pending</h5>
 
@@ -200,14 +179,7 @@ function Admin() {
 
             <div className="col-md-3">
 
-              <div
-                className="p-4 rounded"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
+              <div className="admin-stat-card">
 
                 <h5>Resolved</h5>
 
@@ -219,14 +191,7 @@ function Admin() {
 
             <div className="col-md-3">
 
-              <div
-                className="p-4 rounded"
-                style={{
-                  background: "rgba(255,255,255,0.08)",
-
-                  border: "1px solid rgba(255,255,255,0.1)",
-                }}
-              >
+              <div className="admin-stat-card">
 
                 <h5>Users</h5>
 
@@ -238,18 +203,11 @@ function Admin() {
 
           </div>
 
-          <div
-            className="p-4 rounded"
-            style={{
-              background: "rgba(255,255,255,0.08)",
+          {/* TABLE */}
 
-              backdropFilter: "blur(10px)",
+          <div className="admin-table-box">
 
-              border: "1px solid rgba(255,255,255,0.1)",
-            }}
-          >
-
-            <h3 className="mb-4">
+            <h3>
               Complaint Management
             </h3>
 
@@ -273,6 +231,8 @@ function Admin() {
 
                     <th>Date</th>
 
+                    <th>Image</th>
+
                     <th>Actions</th>
 
                   </tr>
@@ -281,69 +241,105 @@ function Admin() {
 
                 <tbody>
 
-                  {complaints.map((item) => (
+                  {
+                    complaints.map((item) => (
 
-                    <tr key={item._id}>
+                      <tr key={item._id}>
 
-                      <td>{item.complaintId}</td>
+                        <td>
+                          {item.complaintId}
+                        </td>
 
-                      <td>{item.title}</td>
+                        <td>
+                          {item.title}
+                        </td>
 
-                      <td>{item.userId?.name}</td>
+                        <td>
+                          {item.userId?.name}
+                        </td>
 
-                      <td>{item.category}</td>
+                        <td>
+                          {item.category}
+                        </td>
 
-                      <td>
+                        <td>
 
-                        <select
-                          className="form-select"
-                          value={item.status}
-                          onChange={(e) =>
-                            updateStatus(
-                              item._id,
-                              e.target.value
+                          <select
+                            className="admin-select"
+                            value={item.status}
+                            onChange={(e) =>
+                              updateStatus(
+                                item._id,
+                                e.target.value
+                              )
+                            }
+                          >
+
+                            <option>
+                              Pending
+                            </option>
+
+                            <option>
+                              In Progress
+                            </option>
+
+                            <option>
+                              Resolved
+                            </option>
+
+                          </select>
+
+                        </td>
+
+                        <td>
+
+                          {
+                            new Date(
+                              item.createdAt
+                            ).toLocaleDateString()
+                          }
+
+                        </td>
+
+                        <td>
+
+                          {
+                            item.image ? (
+                              <img
+                                src={`http://localhost:5000/${item.image}`}
+                                alt="complaint"
+                                style={{
+                                  width: "70px",
+                                  height: "70px",
+                                  objectFit: "cover",
+                                  borderRadius: "12px",
+                                  border: "1px solid rgba(255,255,255,0.1)",
+                                }}
+                              />
+                            ) : (
+                              "No Image"
                             )
                           }
-                        >
 
-                          <option>
-                            Pending
-                          </option>
+                        </td>
 
-                          <option>
-                            In Progress
-                          </option>
+                        <td>
 
-                          <option>
-                            Resolved
-                          </option>
+                          <button
+                            className="delete-btn"
+                            onClick={() =>
+                              deleteComplaint(item._id)
+                            }
+                          >
+                            Delete
+                          </button>
 
-                        </select>
+                        </td>
 
-                      </td>
+                      </tr>
 
-                      <td>
-                        {new Date(
-                          item.createdAt
-                        ).toLocaleDateString()}
-                      </td>
-
-                      <td>
-
-                        <button
-                          className="btn btn-danger btn-sm"
-                          onClick={() =>
-                            deleteComplaint(item._id)
-                          }
-                        >
-                          Delete
-                        </button>
-
-                      </td>
-
-                    </tr>
-
-                  ))}
+                    ))
+                  }
 
                 </tbody>
 
