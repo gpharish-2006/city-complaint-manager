@@ -9,7 +9,7 @@ import adminRoutes from './routes/adminRoutes.mjs';
 dotenv.config();
 const port = process.env.PORT || 5000;
 
-const app = express()
+const app = express();
 
 app.use(
   cors({
@@ -27,12 +27,14 @@ app.use("/api/complaints", complaintRoutes)
 app.use("/api/admin", adminRoutes)
 app.use("/uploads", express.static("uploads"))
 
-mongo();
 
+mongo();
 app.get("/",(req,res)=>{
   res.send("Citizen Service API Running");
 });
 
-app.listen(port,()=>{
-  console.log(`server started on http://localhost:${port}/`)
-})
+// app.listen(port, () => {
+//   console.log(`Server running on port ${port}`);
+// });
+
+export default app;
